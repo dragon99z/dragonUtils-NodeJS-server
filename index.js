@@ -11,7 +11,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
     secret: "notagoodsecret",
-    cookie: {httpOnly: true}
+    cookie: {httpOnly: true,secure: true}
 }));
 app.use(csurf());
 app.disable('x-powered-by');
