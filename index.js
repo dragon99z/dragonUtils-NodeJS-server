@@ -1,8 +1,13 @@
+const rateLimit = require('express-rate-limit')
 const express = require("express");
 const https = require('https');
 const fs = require("fs");
 const app = express();
+app.use("/events",rateLimit());
 app.use(require('sanitize').middleware);
+app.disable('x-powered-by');
+app.set('host', process.env.IP || '127.0.0.1');
+app.set('port', process.env.PORT || 3000);
 const port = 3000;
 
 
