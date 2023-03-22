@@ -1,10 +1,18 @@
 const rateLimit = require('express-rate-limit')
-const express = require("express");
+import session from 'express-session';
+import csurf from 'csurf';
 const https = require('https');
 const fs = require("fs");
-const app = express();
+let app = express();
 app.use("/events",rateLimit());
 app.use(require('sanitize').middleware);
+app.use(session({
+    resave: true,
+    saveUninitialized: true,
+    secret: "notagoodsecret",
+    cookie: {httpOnly: true}
+}));
+app.use(csurf());
 app.disable('x-powered-by');
 app.set('host', process.env.IP || '127.0.0.1');
 app.set('port', process.env.PORT || 3000);
